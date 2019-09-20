@@ -393,7 +393,7 @@ with_transaction(C, F, Opts0) ->
         R
     catch
         ?WITH_STACKTRACE(Type, Reason, Stack)
-            squery(C, "ROLLBACK"),
+            {ok, _, _} = squery(C, <<"ROLLBACK">>),
             case maps:get(reraise, Opts, true) of
                 true ->
                     erlang:raise(Type, Reason, Stack);
